@@ -27,5 +27,7 @@ class TagsTableSeeder extends Seeder
 
         $tag2->posts()->attach(8);
 
+        Tag::factory()->count(20)->create();
+
     }
 }
