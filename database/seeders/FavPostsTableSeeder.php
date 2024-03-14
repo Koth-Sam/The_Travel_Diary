@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\FavPost;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,8 +19,14 @@ class FavPostsTableSeeder extends Seeder
         $post1->save();
 
         $post1->users()->attach(1);
-        $post1->users()->attach(24);
+        $post1->users()->attach(8);
 
-        FavPost::factory()->count(10)->create();
+        $post= FavPost::factory()->count(10)->create();
+
+        User::all()->each(function ($user) use ($post) {
+            $user->fav_posts()->attach(
+                $post->random(1, 10)->pluck('id')->toArray()
+            );
+        });
     }
 }

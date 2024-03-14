@@ -21,7 +21,7 @@ class PhotoFactory extends Factory
             
             'file_name' => fake()->sentence(),
             'file_path' => fake()->imageUrl(),
-            'post_id' => fake()->numberBetween(2,30),
+            'post_id' => fake()->numberBetween(1,10),
 
         ];
     }
