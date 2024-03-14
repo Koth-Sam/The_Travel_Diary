@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FavPostsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
         $this->call(PhotosTableSeeder::class);
-       
+        $this->call(RolesTableSeeder::class);
     }
 }
