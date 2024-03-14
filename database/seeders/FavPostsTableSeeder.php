@@ -20,6 +20,6 @@ class FavPostsTableSeeder extends Seeder
         $post1->users()->attach(1);
         $post1->users()->attach(24);
 
-        //FavPost::factory()->count(10)->create();
+        FavPost::factory()->count(10)->create();
     }
 }
