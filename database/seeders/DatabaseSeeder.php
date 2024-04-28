@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CommentsTableSeeder::class);
         $this->call(FavPostsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
+        
         $this->call(PhotosTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UserSettingsTableSeeder::class);
