@@ -6,7 +6,7 @@
 
 
 <div class="mb-4">
-    <a href="{{ route('posts.create') }}" class="inline-block px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-black-600 transition duration-300">
+    <a href="{{ route('posts.create') }}" class="inline-block px-4 py-2 bg-green-500 text-black rounded-lg hover:bg-black-600 transition duration-300">
         Create Post
     </a>
 </div>
@@ -17,7 +17,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
          
             <div class="md:col-span-1 lg:col-span-1">
-                <img src="https://placehold.co/600x400" alt="{{ $post->title }}" class="object-cover w-full h-64 md:h-auto">
+                @if ($post->photos->isNotEmpty() && !empty($post->photos->first()->file_path))
+                    <img src="{{ asset($post->photos->first()->file_path) }}" alt="{{ $post->title }}" class="object-cover w-full h-64 md:h-auto">
+                @else
+                    <img src="https://placehold.co/600x400" alt="{{ $post->title }}" class="object-cover w-full h-64 md:h-auto">
+                @endif
             </div>
             <!-- Grid item for title and description -->
             <div class="md:col-span-1 lg:col-span-1">
