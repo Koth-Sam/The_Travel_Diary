@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,14 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $usercount= User::all()->count();
         return [
             //
             'title' => fake()->sentence(),
             'content' => fake()->paragraph(),
-            'user_id' => fake()->numberBetween(1,30),
 
+            'user_id' => fake()->numberBetween($min=1, $max=$usercount),
+            
         ];
     }
 }

@@ -18,6 +18,42 @@
     <div class="p-6">
         <h2 class="text-2xl font-bold mb-2">{{ $post->title }}</h2>
         <p class="text-gray-700">{{ $post->content }}</p>
+       
+        @auth
+        <button id="toggleComment" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Add Comment</button>
+
+        <div id="commentBox" class="hidden mt-4">
+            <form action="{{ route('posts.comments.store', ['id' => $post->id]) }}" method="POST" >
+                @csrf
+                <textarea name="comment" class="w-full px-3 py-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500" rows="4" placeholder="Write your comment here..."></textarea>
+                <button type="submit" class="mt-2 bg-green-500 text-black px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">Submit</button>
+            </form>
+        </div>
+        @else
+        
+        @endauth
+    
+        <div class="mt-8">
+            <h3 class="text-xl font-semibold mb-4">Comments</h3>
+            @foreach ($post->comments as $comment)
+            <div class="bg-gray-100 p-4 rounded-md mb-4">
+                <p class="text-gray-800">{{ $comment->comment }}</p>
+                <p class="text-gray-600">By: {{ $comment->user->name }}</p>
+            </div>
+            @endforeach
+        </div>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('toggleComment').addEventListener('click', function() {
+        document.getElementById('commentBox').classList.toggle('hidden');
+    });
+</script>
 @endsection
+
+
+
+
+
