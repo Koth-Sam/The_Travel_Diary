@@ -19,13 +19,6 @@ Route::get('/', [PostController::class, 'index'])->name('posts.home');
 Route::get('/users/{id}', [UserController::class, 'getUserPosts'])->name('users.posts');
 
 
-/*Route::get('/newwelcome', function () {
-    return view('newwelcome');
-}); */
-
-/*Route::get('/posts/{name}', function ($name=null) {
-    return view('post', ['name'=>$name]);
-}); */
 
 Route::get('/posts', [PostController::class, 'index']);
 
@@ -37,15 +30,20 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
+Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+
+
+Route::post('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
 
 // Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/secret', function()
-{return "secret";
-})->middleware(['auth']);
+// Route::get('/secret', function()
+// {return "secret";
+// })->middleware(['auth']);
 
 
 Route::middleware('auth')->group(function () {

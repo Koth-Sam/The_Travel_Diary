@@ -48,7 +48,7 @@ class DashboardController extends Controller
         $post = Post::with('photos')->findOrFail($id);
     
     // // Pass the post with its photos to the view
-    return view('dashboard', ['post' => $post]);
+        return view('dashboard', ['post' => $post]);
     }
 
     /**

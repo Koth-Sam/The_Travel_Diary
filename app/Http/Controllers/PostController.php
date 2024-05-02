@@ -41,8 +41,7 @@ class PostController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for images
         ]);
 
-        // Handle image upload and saving to disk
-        // Your image upload logic goes here...
+       
 
         // Save the post to the database using the create method
         $post = Post::create([
@@ -73,9 +72,6 @@ class PostController extends Controller
         }
 
 
-        // Flash a success message
-        session()->flash('success', 'Post created successfully.');
-
         // Redirect the user to the index page
         return redirect()->route('posts.index');
     }
@@ -98,15 +94,40 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        // Your edit logic goes here...
+        // Find the post with the given ID and eager load its comments
+        $post = Post::with(['photos', 'comments' => function ($query) {
+            $query->orderBy('created_at', 'desc'); // Order comments by created_at in descending order
+        }])->findOrFail($id);
+
+        return view('posts.edit', ['post' => $post]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
+
         // Your update logic goes here...
+             // Find the post by ID
+    $post = Post::findOrFail($id);
+
+  
+        $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string|max:2000',
+    ]);
+
+    
+    $post->update([
+    'id' => $id, // Add the post ID here
+    'title' => $validatedData['title'],
+    'content' => $validatedData['content'],
+    ]);
+
+    return redirect()->route('posts.show', ['id' => $post->id]);
+
     }
 
 
